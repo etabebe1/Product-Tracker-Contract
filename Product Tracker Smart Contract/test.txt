@@ -1,62 +1,42 @@
-solidity
-pragma solidity ^0.8.0;
+  // Validate product details directly within the function
+        require(
+            bytes(_productType).length > 0,
+            "Empty product type not allowed"
+        );
+        require(
+            bytes(_productName).length > 0,
+            "Empty product name not allowed"
+        );
+        require(bytes(_brandName).length > 0, "Empty brand name not allowed");
+        require(_quantity > 0, "Quantity must be greater than zero");
 
-contract ProductTracking {
-    struct Product {
-        uint256 productId;
-        string productName;
-        uint256 quantity;
-        string shipmentStatus;
-    }
-
-    mapping(uint256 => Product) public products;
-
-    function addProduct(
-        uint256 _productId,
-        string memory _productName,
-        uint256 _quantity
-    ) public {
+        uint256 _productId = block.timestamp;
         require(products[_productId].productId == 0, "Product already exists");
+
         products[_productId] = Product(
             _productId,
+            _productType,
+            _brandName,
             _productName,
+            _materials,
+            _certificates,
             _quantity,
-            "Not Shipped"
+            Location({
+                name: _locationName,
+                custodian: _custodian,
+                shipped: _shipped,
+                departure: _shipped ? block.timestamp : 0,
+                arrived: false, // Set default values for other fields
+                arrival: 0
+            })
         );
-    }
 
-    function shipProduct(uint256 _productId) public {
-        require(
-            products[_productId].productId != 0,
-            "Product does not exist"
+        emit ProductGenerated(
+            _productId,
+            _productType,
+            _brandName,
+            _productName,
+            _materials,
+            _certificates,
+            _quantity
         );
-        require(
-            keccak256(bytes(products[_productId].shipmentStatus)) ==
-                keccak256(bytes("Not Shipped")),
-            "Product is already shipped"
-        );
-        products[_productId].shipmentStatus = "Shipped";
-    }
-
-    function getProduct(uint256 _productId)
-        public
-        view
-        returns (
-            uint256,
-            string memory,
-            uint256,
-            string memory
-        )
-    {
-        require(
-            products[_productId].productId != 0,
-            "Product does not exist"
-        );
-        return (
-            products[_productId].productId,
-            products[_productId].productName,
-            products[_productId].quantity,
-            products[_productId].shipmentStatus
-        );
-    }
-}
