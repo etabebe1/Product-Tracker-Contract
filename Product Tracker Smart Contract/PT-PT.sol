@@ -5,11 +5,7 @@ contract ProductTracker {
     // state variable
     struct Product {
         uint256 productId;
-        string productType;
-        string brandName;
         string productName;
-        string[] Materials;
-        string[] Certificates;
         uint256 quantity;
         Location location;
     }
@@ -28,11 +24,7 @@ contract ProductTracker {
     // events
     event ProductGenerated(
         uint256 indexed productId,
-        string productType,
-        string brandName,
         string productName,
-        string[] materials,
-        string[] certificates,
         uint256 quantity
     );
 
@@ -44,53 +36,29 @@ contract ProductTracker {
         bool arrivalStatus
     );
 
+    // Modifire
     modifier productExisted(uint256 _productId) {
         // Check if product exists
         require(
             products[_productId].productId != _productId,
             "Product does not exist"
         );
-        require(products[_productId].quantity != 0, "Product is out of stock");
-        require(
-            products[_productId].location.shipped == true,
-            "Product has been shipped"
-        );
         _;
     }
 
-    function GenerateProduct(
-        string memory _productType,
+    function addProduct(
         string memory _productName,
-        string memory _brandName,
-        string[] memory _materials,
-        string[] memory _certificates,
         uint256 _quantity,
         string memory _locationName, // Optional location name
         string memory _custodian,
         bool _shipped
     ) public {
-        // Validate product details directly within the function
-        require(
-            bytes(_productType).length > 0,
-            "Empty product type not allowed"
-        );
-        require(
-            bytes(_productName).length > 0,
-            "Empty product name not allowed"
-        );
-        require(bytes(_brandName).length > 0, "Empty brand name not allowed");
-        require(_quantity > 0, "Quantity must be greater than zero");
-
         uint256 _productId = block.timestamp;
         require(products[_productId].productId == 0, "Product already exists");
 
         products[_productId] = Product(
             _productId,
-            _productType,
-            _brandName,
             _productName,
-            _materials,
-            _certificates,
             _quantity,
             Location({
                 name: _locationName,
@@ -102,15 +70,7 @@ contract ProductTracker {
             })
         );
 
-        emit ProductGenerated(
-            _productId,
-            _productType,
-            _brandName,
-            _productName,
-            _materials,
-            _certificates,
-            _quantity
-        );
+        emit ProductGenerated(_productId, _productName, _quantity);
     }
 
     function initalizeShipment(uint256 _productId, string memory _locationName)

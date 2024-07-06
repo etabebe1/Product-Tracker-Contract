@@ -1,0 +1,62 @@
+solidity
+pragma solidity ^0.8.0;
+
+contract ProductTracking {
+    struct Product {
+        uint256 productId;
+        string productName;
+        uint256 quantity;
+        string shipmentStatus;
+    }
+
+    mapping(uint256 => Product) public products;
+
+    function addProduct(
+        uint256 _productId,
+        string memory _productName,
+        uint256 _quantity
+    ) public {
+        require(products[_productId].productId == 0, "Product already exists");
+        products[_productId] = Product(
+            _productId,
+            _productName,
+            _quantity,
+            "Not Shipped"
+        );
+    }
+
+    function shipProduct(uint256 _productId) public {
+        require(
+            products[_productId].productId != 0,
+            "Product does not exist"
+        );
+        require(
+            keccak256(bytes(products[_productId].shipmentStatus)) ==
+                keccak256(bytes("Not Shipped")),
+            "Product is already shipped"
+        );
+        products[_productId].shipmentStatus = "Shipped";
+    }
+
+    function getProduct(uint256 _productId)
+        public
+        view
+        returns (
+            uint256,
+            string memory,
+            uint256,
+            string memory
+        )
+    {
+        require(
+            products[_productId].productId != 0,
+            "Product does not exist"
+        );
+        return (
+            products[_productId].productId,
+            products[_productId].productName,
+            products[_productId].quantity,
+            products[_productId].shipmentStatus
+        );
+    }
+}

@@ -1,0 +1,279 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "location",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "custodian",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "time",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "arrivalStatus",
+						"type": "bool"
+					}
+				],
+				"name": "Departed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "productType",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "brandName",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "productName",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string[]",
+						"name": "materials",
+						"type": "string[]"
+					},
+					{
+						"indexed": false,
+						"internalType": "string[]",
+						"name": "certificates",
+						"type": "string[]"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "ProductGenerated",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_productType",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_productName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_brandName",
+						"type": "string"
+					},
+					{
+						"internalType": "string[]",
+						"name": "_materials",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "_certificates",
+						"type": "string[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_quantity",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_locationName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_custodian",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "_shipped",
+						"type": "bool"
+					}
+				],
+				"name": "GenerateProduct",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_locationName",
+						"type": "string"
+					}
+				],
+				"name": "initalizeShipment",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "products",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "productType",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "brandName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "productName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "custodian",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "departure",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "shipped",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "arrived",
+								"type": "bool"
+							},
+							{
+								"internalType": "uint256",
+								"name": "arrival",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct ProductTracker.Location",
+						"name": "location",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Product Tracker Smart Contract/ProductTracker.sol": "ProductTracker"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Product Tracker Smart Contract/ProductTracker.sol": {
+			"keccak256": "0x2873df9b1b14edd7644b7314dc37496c0021dcc080d4ad101f9f6a7e65a6777f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://eb85159a1a14d6332b6488b3c69a81dfe704fe32eab27a2bfec84f6602459a6b",
+				"dweb:/ipfs/QmPiGKn577T592rzogQf6JJojFVMGCTAQCVjLQ5DaNimq9"
+			]
+		}
+	},
+	"version": 1
+}

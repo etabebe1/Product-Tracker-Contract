@@ -1,0 +1,444 @@
+{
+	"compiler": {
+		"version": "0.4.20+commit.3155dd80"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"name": "_custodian",
+						"type": "string"
+					},
+					{
+						"name": "_arrival",
+						"type": "uint256"
+					}
+				],
+				"name": "arrive",
+				"outputs": [
+					{
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "originName",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "to",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "deliveryTime",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "destinationName",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "departureTime",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "getLocations",
+				"outputs": [
+					{
+						"components": [
+							{
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"name": "custodian",
+								"type": "string"
+							},
+							{
+								"name": "arrival",
+								"type": "uint256"
+							},
+							{
+								"name": "departure",
+								"type": "uint256"
+							}
+						],
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_index",
+						"type": "uint256"
+					},
+					{
+						"name": "_departure",
+						"type": "uint256"
+					}
+				],
+				"name": "depart",
+				"outputs": [
+					{
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "from",
+				"outputs": [
+					{
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "packageId",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"name": "_custodian",
+						"type": "string"
+					},
+					{
+						"name": "_arrival",
+						"type": "uint256"
+					}
+				],
+				"name": "deliver",
+				"outputs": [
+					{
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "getDetails",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "string"
+					},
+					{
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"name": "_packageId",
+						"type": "uint256"
+					},
+					{
+						"name": "_from",
+						"type": "string"
+					},
+					{
+						"name": "_to",
+						"type": "string"
+					},
+					{
+						"name": "_originName",
+						"type": "string"
+					},
+					{
+						"name": "_destinationName",
+						"type": "string"
+					},
+					{
+						"name": "_custodian",
+						"type": "string"
+					},
+					{
+						"name": "_departureTime",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"payable": true,
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"name": "location",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"name": "custodian",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"name": "time",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "Departed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"name": "location",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"name": "custodian",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"name": "time",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "Arrived",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"name": "location",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"name": "custodian",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"name": "time",
+						"type": "uint256"
+					}
+				],
+				"name": "Delivered",
+				"type": "event"
+			}
+		],
+		"devdoc": {
+			"methods": {
+				"arrive(string,string,uint256)": {
+					"params": {
+						"_arrival": "Unix time stamp in seconds of the arrival time.",
+						"_custodian": "Name of the custodian of the package at this location.",
+						"_name": "Location name."
+					},
+					"return": "True if success."
+				},
+				"deliver(string,string,uint256)": {
+					"params": {
+						"_arrival": "Unix time stamp in seconds of the arrival time.",
+						"_custodian": "Name of the custodian of the package at this location.",
+						"_name": "Location name."
+					},
+					"return": "True if success."
+				},
+				"depart(uint256,uint256)": {
+					"params": {
+						"_departure": "Unix time stamp in seconds of the departure time.",
+						"_index": "Index of the location in the locations array."
+					},
+					"return": "True if success."
+				},
+				"getDetails()": {
+					"return": "Returns all of the public members of the contract."
+				},
+				"getLocations()": {
+					"return": "Returns all locations."
+				}
+			},
+			"title": "An example shipment tracking smart contract."
+		},
+		"userdoc": {
+			"methods": {
+				"arrive(string,string,uint256)": {
+					"notice": "Sets a location in the locations array when the package arrives    at a new location. Also publicly alerts via `Arrived`."
+				},
+				"deliver(string,string,uint256)": {
+					"notice": "Sets a location in the locations array when the package arrives    at the final destination. Also publicly alerts via `Arrived` and    `Delivered`."
+				},
+				"depart(uint256,uint256)": {
+					"notice": "Sets the departure time of the location in the locations array. Also    publicly alerts via `Departed`."
+				},
+				"getDetails()": {
+					"notice": "Gets all the details for the package contract in 1 call."
+				},
+				"getLocations()": {
+					"notice": "Gets all the locations in the array."
+				}
+			}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Product Tracker Smart Contract/Shpment_Tracker_Example.sol": "ShipmentTracking"
+		},
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Product Tracker Smart Contract/Shpment_Tracker_Example.sol": {
+			"keccak256": "0xf894e44fe4ba2771432fe1980d61cb14ae6ae79e367b5d0e0be49afefb6bd677",
+			"urls": [
+				"bzzr://96341586641b7463636b76cf59b391a796444bb16fe05da1507b0a0c299e6a8c"
+			]
+		}
+	},
+	"version": 1
+}
