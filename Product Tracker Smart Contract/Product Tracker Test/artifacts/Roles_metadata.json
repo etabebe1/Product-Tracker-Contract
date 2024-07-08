@@ -52,43 +52,6 @@
 				"anonymous": false,
 				"inputs": [
 					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "location",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "custodian",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "time",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "bool",
-						"name": "arrivalStatus",
-						"type": "bool"
-					}
-				],
-				"name": "Departed",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
 						"indexed": true,
 						"internalType": "address",
 						"name": "previousOwner",
@@ -102,93 +65,6 @@
 					}
 				],
 				"name": "OwnershipTransferred",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "uint256",
-						"name": "productId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "productType",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "brandName",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "productName",
-						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "string[]",
-						"name": "materials",
-						"type": "string[]"
-					},
-					{
-						"indexed": false,
-						"internalType": "string[]",
-						"name": "certificates",
-						"type": "string[]"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "quantity",
-						"type": "uint256"
-					},
-					{
-						"components": [
-							{
-								"internalType": "string",
-								"name": "name",
-								"type": "string"
-							},
-							{
-								"internalType": "string",
-								"name": "custodian",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "departure",
-								"type": "uint256"
-							},
-							{
-								"internalType": "bool",
-								"name": "shipped",
-								"type": "bool"
-							},
-							{
-								"internalType": "bool",
-								"name": "arrived",
-								"type": "bool"
-							},
-							{
-								"internalType": "uint256",
-								"name": "arrival",
-								"type": "uint256"
-							}
-						],
-						"indexed": false,
-						"internalType": "struct ProductTracker.Location",
-						"name": "location",
-						"type": "tuple"
-					}
-				],
-				"name": "ProductGenerated",
 				"type": "event"
 			},
 			{
@@ -268,7 +144,20 @@
 			},
 			{
 				"inputs": [],
-				"name": "AUTHORIZED_ROLE",
+				"name": "ADMIN_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "COMPANY_OWNER_ROLE",
 				"outputs": [
 					{
 						"internalType": "bytes32",
@@ -295,59 +184,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "string",
-						"name": "_productType",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_productName",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_brandName",
-						"type": "string"
-					},
-					{
-						"internalType": "string[]",
-						"name": "_materials",
-						"type": "string[]"
-					},
-					{
-						"internalType": "string[]",
-						"name": "_certificates",
-						"type": "string[]"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_quantity",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "_locationName",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_custodian",
-						"type": "string"
-					},
-					{
-						"internalType": "bool",
-						"name": "_shipped",
-						"type": "bool"
-					}
-				],
-				"name": "GenerateProduct",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "bytes32",
 						"name": "role",
 						"type": "bytes32"
@@ -368,11 +204,24 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_admin",
+						"type": "address"
+					}
+				],
+				"name": "grantAdminRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "_userAddress",
 						"type": "address"
 					}
 				],
-				"name": "grantAuthorization",
+				"name": "grantCompanyOwnerRole",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -420,24 +269,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_productId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "_locationName",
-						"type": "string"
-					}
-				],
-				"name": "initalizeShipment",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "owner",
 				"outputs": [
@@ -445,82 +276,6 @@
 						"internalType": "address",
 						"name": "",
 						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "products",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "productId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "productType",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "brandName",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "productName",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "quantity",
-						"type": "uint256"
-					},
-					{
-						"components": [
-							{
-								"internalType": "string",
-								"name": "name",
-								"type": "string"
-							},
-							{
-								"internalType": "string",
-								"name": "custodian",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "departure",
-								"type": "uint256"
-							},
-							{
-								"internalType": "bool",
-								"name": "shipped",
-								"type": "bool"
-							},
-							{
-								"internalType": "bool",
-								"name": "arrived",
-								"type": "bool"
-							},
-							{
-								"internalType": "uint256",
-								"name": "arrival",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct ProductTracker.Location",
-						"name": "location",
-						"type": "tuple"
 					}
 				],
 				"stateMutability": "view",
@@ -555,11 +310,24 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_admin",
+						"type": "address"
+					}
+				],
+				"name": "revokeAdminRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "_userAddress",
 						"type": "address"
 					}
 				],
-				"name": "revokeAuthorization",
+				"name": "revokeCompanyOwnerRole",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -651,20 +419,6 @@
 			},
 			"kind": "dev",
 			"methods": {
-				"GenerateProduct(string,string,string,string[],string[],uint256,string,string,bool)": {
-					"details": "Generates a new product with the given details. The function can only be called by authorized users. Requirements: - Caller must have the AUTHORIZED_ROLE. - Product type, name, brand name, materials and certificates should not be empty. - Quantity must be greater than zero.",
-					"params": {
-						"_brandName": "The brand name of the product.",
-						"_certificates": "Array of certificates related to the product.",
-						"_custodian": "Name of the custodian for this product.",
-						"_locationName": "Optional location name where the product is initially stored.",
-						"_materials": "Array of materials used in making the product.",
-						"_productName": "The name of the product.",
-						"_productType": "The type of product.",
-						"_quantity": "Quantity of the product.",
-						"_shipped": "Indicates if the product has been shipped or not."
-					}
-				},
 				"getRoleAdmin(bytes32)": {
 					"details": "Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}."
 				},
@@ -673,13 +427,6 @@
 				},
 				"hasRole(bytes32,address)": {
 					"details": "Returns `true` if `account` has been granted `role`."
-				},
-				"initalizeShipment(uint256,string)": {
-					"details": "Initializes the shipment status of a product. The function can only be called by authorized users. Requirements: - Caller must have the AUTHORIZED_ROLE. - Product should exist and not be out of stock. - Product should have been shipped before.",
-					"params": {
-						"_locationName": "The new location name where the product is stored.",
-						"_productId": "The ID of the product to initialize shipment for."
-					}
 				},
 				"owner()": {
 					"details": "Returns the address of the current owner."
@@ -700,15 +447,9 @@
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
 			},
-			"title": "ProductTracker This contract allows tracking of products in a supply chain with various attributes and location details.",
 			"version": 1
 		},
 		"userdoc": {
-			"events": {
-				"ProductGenerated(uint256,string,string,string,string[],string[],uint256,(string,string,uint256,bool,bool,uint256))": {
-					"notice": "mapping for authorizedUsers is substituted by AccessControl.sol from openzeppelin"
-				}
-			},
 			"kind": "user",
 			"methods": {},
 			"version": 1
@@ -716,7 +457,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Product Tracker Smart Contract/ProductTracker.sol": "ProductTracker"
+			"Product Tracker Smart Contract/Product Tracker Test/Role.sol": "Roles"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -778,12 +519,12 @@
 				"dweb:/ipfs/QmeJQCtZrQjtJLr6u7ZHWeH3pBnjtLWzvRrKViAi7UZqxL"
 			]
 		},
-		"Product Tracker Smart Contract/ProductTracker.sol": {
-			"keccak256": "0xa8b8adc0151ff349f77acb871a10b82c45ad0c314c1e623389841fb2a5086187",
+		"Product Tracker Smart Contract/Product Tracker Test/Role.sol": {
+			"keccak256": "0x99d09d7bed653c7f002b78c4d9034b15045242589532880bbca207890cfd9d77",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://140668b4fb6696492ef9c3684df57816025e69c5135b2de3482d5bd6faac1cb2",
-				"dweb:/ipfs/Qmb1xx9jeYeXFeWqZuHuLyDbz6jSqLBdbscUAEyLdp9NJZ"
+				"bzz-raw://512287cbd4e003d85e33e88ce294bf149a1c29c487d1ad14e388a761215159d9",
+				"dweb:/ipfs/QmSTmYh7yBegT5aAAeMomzqtSRv6ABKqUGHzNAJkBi3r2f"
 			]
 		}
 	},
