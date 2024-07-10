@@ -22,6 +22,7 @@ contract ProductTracker is Ownable(msg.sender), AccessControl {
         string productName;
         uint256 quantity;
         uint256 productionDate;
+        address generatorBy;
         Location location;
     }
 
@@ -37,11 +38,9 @@ contract ProductTracker is Ownable(msg.sender), AccessControl {
     mapping(uint256 => Product) public products;
     mapping(uint256 => address) public productGenerator;
     mapping(uint256 => address) public companyOwners;
-    /// mapping for authorizedUsers is substituted by AccessControl.sol from openzeppelin
-    // mapping(address => bool) public authorizedUsers;
 
     // Events
-    event ProductGenerated(
+     event ProductGenerated(
         uint256 indexed productId,
         string productType,
         string brandName,
@@ -49,14 +48,6 @@ contract ProductTracker is Ownable(msg.sender), AccessControl {
         uint256 quantity,
         address indexed generator,
         Location location
-    );
-
-    event Departed(
-        string location,
-        string custodian,
-        uint256 time,
-        uint256 index,
-        bool arrivalStatus
     );
 
     modifier productExisted(uint256 _productId) {
@@ -72,15 +63,6 @@ contract ProductTracker is Ownable(msg.sender), AccessControl {
         require(products[_productId].quantity != 0, "Product is out of stock");
         _;
     }
-
-    modifier onlyCompanyOwnerOrAdmin() {
-          require(hasRole(COMPANY_OWNER_ROLE, msg.sender) || hasRole(ADMIN_ROLE, msg.sender), "User not authorized");
-    _;    }
-
-    // modifier onlyAdmin() {
-    //     require(hasRole(ADMIN_ROLE, msg.sender), "User not admin");
-    //     _;
-    // }
 
     modifier validateProductDetails(
         string memory _productType,
@@ -102,34 +84,53 @@ contract ProductTracker is Ownable(msg.sender), AccessControl {
         _; // The rest of the function code follows here
     }
 
-    modifier checkGenerator(uint256 _productId) {
+    modifier onlyCompanyOwnerOrAuthorizedAdmin(uint256 _productId) {
         require(
-            msg.sender == productGenerator[_productId],
-            "Only the product generator or admin can call this function"
+            msg.sender == companyOwners[_productId] ||
+                (hasRole(ADMIN_ROLE, msg.sender) &&
+                    isSameCompany(msg.sender, _productId)),
+            "Unauthorized to ship product"
+        );
+        _;
+    }
+    // 
+    modifier onlyCompanyOwnerOrAdmin() {
+        require(
+            hasRole(COMPANY_OWNER_ROLE, msg.sender) ||
+                hasRole(ADMIN_ROLE, msg.sender),
+            "User not authorized"
         );
         _;
     }
 
-    function authorizeCompanyOwner(address _userAddress) public onlyOwner {
+    function AuthorizeCompanyOwner(address _userAddress) public onlyOwner {
         _grantRole(COMPANY_OWNER_ROLE, _userAddress);
     }
 
-    function revokeCompanyOwner(address _userAddress) public onlyOwner {
+    function RevokeCompanyOwner(address _userAddress) public onlyOwner {
         _revokeRole(COMPANY_OWNER_ROLE, _userAddress);
     }
 
-    function grantAdminRole(address _admin)
+    function GrantAdminRole(address _admin)
         public
         onlyRole(COMPANY_OWNER_ROLE)
     {
         _grantRole(ADMIN_ROLE, _admin);
     }
 
-    function revokeAdminRole(address _admin)
+    function RevokeAdminRole(address _admin)
         public
         onlyRole(COMPANY_OWNER_ROLE)
     {
         _revokeRole(ADMIN_ROLE, _admin);
+    }
+
+    function isSameCompany(address _admin, uint256 _productId)
+        internal
+        view
+        returns (bool)
+    {
+        return _admin == companyOwners[_productId];
     }
 
     /**
@@ -159,17 +160,13 @@ contract ProductTracker is Ownable(msg.sender), AccessControl {
         string memory _locationName, // Optional location name
         string memory _custodian,
         bool _shipped
-    )
-        public
-        onlyCompanyOwnerOrAdmin
-        validateProductDetails(
+    ) public onlyCompanyOwnerOrAdmin validateProductDetails(
             _productType,
             _productName,
             _brandName,
             _quantity
-        )
-    {
-        // Validate product details directly within the function
+        ) {
+                // Validate product details directly within the function
         uint256 _productId = nextProductId;
 
         products[_productId] = Product(
@@ -179,6 +176,7 @@ contract ProductTracker is Ownable(msg.sender), AccessControl {
             _productName,
             _quantity,
             block.timestamp,
+            msg.sender,
             Location({
                 name: _locationName,
                 custodian: _custodian,
@@ -219,27 +217,5 @@ contract ProductTracker is Ownable(msg.sender), AccessControl {
     // FUNCTION TO INITALIZE-SHIPMENT
     function initalizeShipment(uint256 _productId, string memory _locationName)
         public
-        productExisted(_productId)
-        onlyRole(COMPANY_OWNER_ROLE)
-        onlyRole(ADMIN_ROLE)
-    {
-        // Check if caller is authorized (company owner or admin for that company)
-        require(
-            msg.sender == companyOwners[_productId] ||
-                hasRole(ADMIN_ROLE, msg.sender), // Check company owner or admin role
-            "Unauthorized to ship product"
-        );
-
-        products[_productId].location.name = _locationName;
-        products[_productId].location.departure = block.timestamp;
-        products[_productId].location.shipped = true;
-
-        emit Departed(
-            products[_productId].location.name,
-            products[_productId].location.custodian,
-            block.timestamp,
-            _productId,
-            products[_productId].location.arrived
-        );
-    }
+    {}
 }
